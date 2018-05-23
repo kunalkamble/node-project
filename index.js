@@ -10,12 +10,27 @@ const courseSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
+        //Accept any one value from the following list
         enum: ['web', 'mobile', 'network'],
         lowercase: true,
         // uppercase: true,
         trim: true
     },
-    tags: [String],
+    tags: {
+        type: Array,
+        //Custom validation
+        validate: {
+            isAsync: true,
+            validator: function(v, callback) {
+                setTimeout(() => {
+                    // Do some async work
+                    const result = v && v.length > 0;
+                    callback(result);
+                }, 1000);
+            },
+            message: 'A course should have at least one tag.'
+        }
+    },
     date: { type: Date, default: Date.now },
     isPublished: Boolean
 });
