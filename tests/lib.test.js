@@ -77,3 +77,29 @@ describe('registerUser', () => {
         expect(result.id).toBeGreaterThan(0);
     });
 });
+
+describe('fizzBuzz', () => {
+    const args = [null, undefined, 'abc', {}, false];
+    args.forEach(a => {
+        it(`should throw if input is ${a}`, () => {
+            expect(() => { lib.fizzBuzz(a) }).toThrow();
+        });
+    });
+
+    it('should retun FizzBuzz if number is devisible by 3 & 5', () => {
+        const result = lib.fizzBuzz(15);
+        expect(result).toBe('FizzBuzz');
+    });
+    it('should retun Fizz if number is devisible by 3', () => {
+        const result = lib.fizzBuzz(9);
+        expect(result).toBe('Fizz');
+    });
+    it('should retun Fizz if number is devisible by 5', () => {
+        const result = lib.fizzBuzz(10);
+        expect(result).toBe('Buzz');
+    });
+    it('should retun input if number is not devisible by 3 or 5', () => {
+        const result = lib.fizzBuzz(11);
+        expect(result).toBe(11);
+    });
+});
